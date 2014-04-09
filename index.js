@@ -6,23 +6,25 @@ var extname = require('path').extname;
 var join = require('path').join;
 
 module.exports = function rename(filepath, opt) {
-  var parsedPath = parsePath(filepath);
+  var parsedPath = parsePath(filepath), result = {};
 
   if (typeof opt === 'string' && opt !== '') {
     filepath = opt;
 
   } else if (isFunction(opt)) {
-    var result = opt(parsedPath) || parsedPath;
-    filepath = join(result.dirname, result.basename + result.extname);
+    result = opt(parsedPath) || parsedPath;
+    filepath = joinPath(result);
 
   } else if (isObject(opt)) {
-    var dirname = 'dirname' in opt ? opt.dirname : parsedPath.dirname,
-      prefix = opt.prefix || '',
-      suffix = opt.suffix || '',
-      basename = 'basename' in opt ? opt.basename : parsedPath.basename,
-      extname = 'extname' in opt ? opt.extname : parsedPath.extname;
+    result.dirname = choose('dirname', opt, parsedPath);
+    result.extname = choose('extname', opt, parsedPath);
+    result.basename = [
+      opt.prefix || '',
+      choose('basename', opt, parsedPath),
+      opt.suffix || ''
+    ].join('');
 
-    filepath = join(dirname, prefix + basename + suffix + extname);
+    filepath = joinPath(result);
 
   } else {
     throw new Error('Unsupported renaming parameter type supplied');
@@ -46,4 +48,19 @@ function isObject(obj) {
 
 function isFunction(fun) {
   return Object.prototype.toString.call(fun) === '[object Function]';
+}
+
+function joinPath(path) {
+  var filepath = path.dirname !== '' ?
+    join(path.dirname, path.basename + path.extname) :
+    path.basename + path.extname;
+
+  if (path.dirname.charAt(0) === '.') {
+    filepath = './' + filepath;
+  }
+  return filepath;
+}
+
+function choose(name, changed, origin) {
+  return name in changed ? (changed[name] || '') : origin[name];
 }
