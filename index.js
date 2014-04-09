@@ -8,8 +8,8 @@ var join = require('path').join;
 module.exports = function rename(filepath, opt) {
   var parsedPath = parsePath(filepath), result = {};
 
-  if (typeof opt === 'string' && opt !== '') {
-    filepath = opt;
+  if (typeof opt === 'string') {
+    if (opt) filepath = opt;
 
   } else if (isFunction(opt)) {
     result = opt(parsedPath) || parsedPath;

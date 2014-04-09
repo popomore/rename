@@ -7,6 +7,7 @@ describe('rename', function() {
 
   it('string', function() {
     rename('a.js', 'b.js').should.eql('b.js');
+    rename('a.js', '').should.eql('a.js');
   });
 
   it('function', function() {
@@ -49,7 +50,6 @@ describe('rename', function() {
   });
 
   it('error', function() {
-    shouldThrow('');
     shouldThrow(null);
     shouldThrow(undefined);
     shouldThrow([]);
