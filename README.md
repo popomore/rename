@@ -14,6 +14,10 @@ $ npm install rename -g
 
 Extract from [gulp-rename](https://github.com/hparra/gulp-rename) that can use it directly, you can see it's [document](https://github.com/hparra/gulp-rename#usage).
 
+## Note
+
+Rename before version 0.2.0 is not the same lib, you can see [renamer](https://www.npmjs.org/package/renamer).
+
 ## LISENCE
 
 Copyright (c) 2014 popomore. Licensed under the MIT license.
