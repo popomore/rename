@@ -57,7 +57,7 @@ function joinPath(path) {
     join(path.dirname, path.basename + path.extname) :
     path.basename + path.extname;
 
-  if (path.origin.charAt(0) === '.') {
+  if (path.origin.substring(0,2) === './') {
     filepath = './' + filepath;
   }
   return filepath;

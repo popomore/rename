@@ -40,6 +40,27 @@ describe('rename', function() {
       basename: 'f'
     }).should.eql('./a/b/pre-f-debug.css');
 
+    rename('../a/b/c.js', {
+      prefix: 'pre-',
+      suffix: '-debug',
+      extname: '.css',
+      basename: 'f'
+    }).should.eql('../a/b/pre-f-debug.css');
+
+    rename('./c.js', {
+      prefix: 'pre-',
+      suffix: '-debug',
+      extname: '.css',
+      basename: 'f'
+    }).should.eql('./pre-f-debug.css');
+
+    rename('../c.js', {
+      prefix: 'pre-',
+      suffix: '-debug',
+      extname: '.css',
+      basename: 'f'
+    }).should.eql('../pre-f-debug.css');
+
     rename('c.js', {
       prefix: 'pre-',
       suffix: '-debug',

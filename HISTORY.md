@@ -2,6 +2,10 @@
 
 ---
 
+## 0.2.3
+
+fix `../` path
+
 ## 0.2.2
 
 fix relative path when dirname is empty
