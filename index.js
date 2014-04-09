@@ -23,6 +23,7 @@ module.exports = function rename(filepath, opt) {
       choose('basename', opt, parsedPath),
       opt.suffix || ''
     ].join('');
+    result.origin = parsedPath.origin;
 
     filepath = joinPath(result);
 
@@ -38,7 +39,8 @@ function parsePath(path) {
   return {
     dirname: dirname(path),
     basename: basename(path, ext),
-    extname: ext
+    extname: ext,
+    origin: path
   };
 }
 
@@ -55,7 +57,7 @@ function joinPath(path) {
     join(path.dirname, path.basename + path.extname) :
     path.basename + path.extname;
 
-  if (path.dirname.charAt(0) === '.') {
+  if (path.origin.charAt(0) === '.') {
     filepath = './' + filepath;
   }
   return filepath;
