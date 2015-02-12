@@ -1,7 +1,7 @@
 {
   "name": "rename",
   "version": "0.2.3",
-  "description": "Rename files",
+  "description": "Rename files using some transformers.",
   "main": "index",
   "dependencies": {
     "debug": "~2.1.1"
@@ -19,6 +19,12 @@
   "homepage": "https://github.com/popomore/rename",
   "author": "popomore <sakura9515@gmail.com>",
   "license": "MIT",
+  "keywards": [
+    "rename",
+    "file",
+    "path",
+    "transform"
+  ],
   "scripts": {
     "test": "make test"
   }
