@@ -2,6 +2,14 @@
 
 ---
 
+## 1.0.0
+
+Big change!
+
+- new API `rename(filepath, transformer)`
+- split parse and stringify methods
+- support template in transform object
+
 ## 0.2.3
 
 fix `../` path
