@@ -89,6 +89,36 @@ describe('rename', function() {
     rename('a/b/c.js', {}).should.eql('a/b/c.js');
   });
 
+  it('template', function() {
+    rename({
+      basename: 'c',
+      extname: '.js',
+      hash: '111'
+    }, {
+      suffix: '-${hash}',
+    }).should.eql('c-111.js');
+
+    rename({
+      basename: 'c',
+      extname: '.js',
+      hash: '111'
+    }, function(){
+      return {
+        suffix: '-${hash}',
+      };
+    }).should.eql('c-111.js');
+
+    rename({
+      basename: 'c',
+      extname: '.js',
+      hash: '111'
+    }, function(){
+      return {
+        suffix: '-${noexist}',
+      };
+    }).should.eql('c-.js');
+  });
+
   it('error', function() {
     shouldThrow(null);
     shouldThrow(undefined);

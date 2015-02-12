@@ -99,6 +99,18 @@ rename({
 // => a-123.js
 ```
 
+The value of _transform object_ can be template that parsed from _file object_.
+
+```
+rename({
+  basename: 'c',
+  extname: '.js',
+  hash: '111'
+}, {
+  suffix: '-${hash}',
+}).should.eql('c-111.js');
+```
+
 ### rename.parse
 
 Generate a _file object_ from a string or object.
