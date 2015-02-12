@@ -24,12 +24,6 @@ function rename(filepath, transformer) {
     }
   */
   var fileObj = parse(filepath);
-  debug('file object');
-
-  // rename it when transformer is string as a filepath
-  if (util.isString(transformer)) {
-    return transformer || stringify(fileObj);
-  }
 
   /*
     transformed object
@@ -43,6 +37,13 @@ function rename(filepath, transformer) {
     }
   */
   var transformed = util.isFunction(transformer) ? transformer(fileObj) : transformer;
+
+  // rename it when transformer is string as a filepath
+  if (util.isString(transformer)) {
+    var result = transformer || stringify(fileObj);
+    debug('transform from %j to %j', fileObj, transformed);
+    return result;
+  }
 
   if (!util.isObject(transformed)) {
     throw new Error('transformer should be string, function or object.');
