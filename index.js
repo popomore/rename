@@ -1,66 +1,67 @@
 'use strict';
 
-var dirname = require('path').dirname;
-var basename = require('path').basename;
-var extname = require('path').extname;
-var join = require('path').join;
+var debug = require('debug')('rename');
+var parse = require('./lib/parse');
+var stringify = require('./lib/stringify');
+var util = require('./lib/util');
 
-module.exports = function rename(filepath, opt) {
-  var parsedPath = parsePath(filepath), result = {};
+module.exports = rename;
+module.exports.parse = parse;
+module.exports.stringify = stringify;
 
-  if (typeof opt === 'string') {
-    if (opt) filepath = opt;
+/*
+  Rename filepath using transformer
+*/
+function rename(filepath, transformer) {
+  /*
+    Return a file object
 
-  } else if (isFunction(opt)) {
-    result = opt(parsedPath) || parsedPath;
-    filepath = joinPath(result);
+    {
+      dirname
+      basename
+      extname
+      origin
+    }
+  */
+  var fileObj = parse(filepath);
+  debug('file object');
 
-  } else if (isObject(opt)) {
-    result.dirname = choose('dirname', opt, parsedPath);
-    result.extname = choose('extname', opt, parsedPath);
-    result.basename = [
-      opt.prefix || '',
-      choose('basename', opt, parsedPath),
-      opt.suffix || ''
-    ].join('');
-    result.origin = parsedPath.origin;
-
-    filepath = joinPath(result);
-
-  } else {
-    throw new Error('Unsupported renaming parameter type supplied');
+  // rename it when transformer is string as a filepath
+  if (util.isString(transformer)) {
+    return transformer || stringify(fileObj);
   }
 
-  return filepath;
-};
+  /*
+    transformed object
 
-function parsePath(path) {
-  var ext = extname(path);
-  return {
-    dirname: dirname(path),
-    basename: basename(path, ext),
-    extname: ext,
-    origin: path
-  };
-}
+    {
+      dirname
+      prefix
+      basename
+      suffix
+      extname
+    }
+  */
+  var transformed = util.isFunction(transformer) ? transformer(fileObj) : transformer;
 
-function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-}
-
-function isFunction(fun) {
-  return Object.prototype.toString.call(fun) === '[object Function]';
-}
-
-function joinPath(path) {
-  var filepath = path.dirname !== '' ?
-    join(path.dirname, path.basename + path.extname) :
-    path.basename + path.extname;
-
-  if (path.origin.substring(0,2) === './') {
-    filepath = './' + filepath;
+  if (!util.isObject(transformed)) {
+    throw new Error('transformer should be string, function or object.');
   }
-  return filepath;
+
+  debug('transform from %j to %j', fileObj, transformed);
+  return transform(fileObj, transformed);
+}
+
+function transform(fileObj, transformed) {
+  var result = {};
+  result.dirname = choose('dirname', transformed, fileObj);
+  result.extname = choose('extname', transformed, fileObj);
+  result.basename = [
+    transformed.prefix || '',
+    choose('basename', transformed, fileObj),
+    transformed.suffix || ''
+  ].join('');
+  return stringify(result);
 }
 
 function choose(name, changed, origin) {

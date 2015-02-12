@@ -3,7 +3,9 @@
   "version": "0.2.3",
   "description": "Rename files",
   "main": "index",
-  "dependencies": {},
+  "dependencies": {
+    "debug": "~2.1.1"
+  },
   "devDependencies": {
     "mocha": "~1.17.1",
     "should": "~3.1.3",

@@ -8,20 +8,32 @@ describe('rename', function() {
   it('string', function() {
     rename('a.js', 'b.js').should.eql('b.js');
     rename('a.js', '').should.eql('a.js');
+    rename({
+      basename: 'a',
+      extname: '.js'
+    }, '').should.eql('a.js');
   });
 
   it('function', function() {
-    rename('a/b/c.js', function(path) {
-      path.dirname += '/d';
-      path.basename += '-debug';
-      path.extname = '.css';
-    }).should.eql('a/b/d/c-debug.css');
+    function transformer(fileObj) {
+      var result = {
+        extname: '.css'
+      };
+      if (fileObj.basename === 'd') {
+        result.dirname = fileObj.dirname + '/d';
+      }
+      result.suffix = fileObj.hash || '-debug';
+      return result;
+    }
 
-    rename('./a/b/c.js', function(path) {
-      path.dirname += '/d';
-      path.basename += '-debug';
-      path.extname = '.css';
-    }).should.eql('./a/b/d/c-debug.css');
+    rename('a/b/c.js', transformer).should.eql('a/b/c-debug.css');
+    rename('./a/b/d.js', transformer).should.eql('a/b/d/d-debug.css');
+    rename({
+      dirname: 'a/b',
+      basename: 'c',
+      extname: '.js',
+      hash: '-abc'
+    }, transformer).should.eql('a/b/c-abc.css');
   });
 
   it('object', function() {
@@ -38,7 +50,7 @@ describe('rename', function() {
       suffix: '-debug',
       extname: '.css',
       basename: 'f'
-    }).should.eql('./a/b/pre-f-debug.css');
+    }).should.eql('a/b/pre-f-debug.css');
 
     rename('../a/b/c.js', {
       prefix: 'pre-',
@@ -52,7 +64,7 @@ describe('rename', function() {
       suffix: '-debug',
       extname: '.css',
       basename: 'f'
-    }).should.eql('./pre-f-debug.css');
+    }).should.eql('pre-f-debug.css');
 
     rename('../c.js', {
       prefix: 'pre-',
@@ -88,5 +100,5 @@ describe('rename', function() {
 function shouldThrow(opt) {
   (function() {
     rename('a.js', opt);
-  }).should.throw('Unsupported renaming parameter type supplied');
+  }).should.throw('transformer should be string, function or object.');
 }
