@@ -1,6 +1,6 @@
-# History
+## 1.0.1 / 2015-02-13
 
----
+- fix: should use transformed object after function call
 
 ## 1.0.0
 
