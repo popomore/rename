@@ -13,6 +13,7 @@ module.exports.stringify = stringify;
   Rename filepath using transformer
 */
 function rename(filepath, transformer) {
+  var result;
   /*
     Return a file object
 
@@ -39,9 +40,9 @@ function rename(filepath, transformer) {
   var transformed = util.isFunction(transformer) ? transformer(fileObj) : transformer;
 
   // rename it when transformer is string as a filepath
-  if (util.isString(transformer)) {
-    var result = transformer || stringify(fileObj);
-    debug('transform from %j to %j', fileObj, transformed);
+  if (util.isString(transformed)) {
+    result = transformed || stringify(fileObj);
+    debug('transform from %j to `%s` with %j', fileObj, result, transformed);
     return result;
   }
 
@@ -49,8 +50,9 @@ function rename(filepath, transformer) {
     throw new Error('transformer should be string, function or object.');
   }
 
-  debug('transform from %j to %j', fileObj, transformed);
-  return transform(fileObj, transformed);
+  result = transform(fileObj, transformed);
+  debug('transform from %j to `%s` with %j', fileObj, result, transformed);
+  return result;
 }
 
 function transform(fileObj, transformed) {

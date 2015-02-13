@@ -34,6 +34,10 @@ describe('rename', function() {
       extname: '.js',
       hash: '-abc'
     }, transformer).should.eql('a/b/c-abc.css');
+
+    rename('a.js', function() {
+      return 'b.js';
+    }).should.eql('b.js');
   });
 
   it('object', function() {
