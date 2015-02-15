@@ -1,3 +1,7 @@
+## 1.0.3 / 2015-02-15
+
+- fix: return self if transformer is empty
+
 ## 1.0.2 / 2015-02-15
 
 - fix: should clone transformer object
