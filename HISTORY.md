@@ -1,3 +1,7 @@
+## 1.0.2 / 2015-02-15
+
+- fix: should clone transformer object
+
 ## 1.0.1 / 2015-02-13
 
 - fix: should use transformed object after function call
