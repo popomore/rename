@@ -26,6 +26,12 @@ function rename(filepath, transformer) {
   */
   var fileObj = parse(filepath);
 
+  if (!transformer) {
+    result = stringify(fileObj);
+    debug('transform to %s with no transformer', result);
+    return result;
+  }
+
   /*
     transformed object
 

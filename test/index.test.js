@@ -8,6 +8,9 @@ describe('rename', function() {
   it('string', function() {
     rename('a.js', 'b.js').should.eql('b.js');
     rename('a.js', '').should.eql('a.js');
+    rename('a.js').should.eql('a.js');
+    rename('a.js', null).should.eql('a.js');
+    rename('a.js', undefined).should.eql('a.js');
     rename({
       basename: 'a',
       extname: '.js'
@@ -132,10 +135,8 @@ describe('rename', function() {
   });
 
   it('error', function() {
-    shouldThrow(null);
-    shouldThrow(undefined);
     shouldThrow([]);
-    shouldThrow();
+    shouldThrow(true);
   });
 });
 
