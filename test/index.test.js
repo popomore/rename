@@ -93,6 +93,14 @@ describe('rename', function() {
     rename('a/b/c.js', {}).should.eql('a/b/c.js');
   });
 
+  it('object more than once', function() {
+    var transform = {
+      suffix: '-${hash}'
+    };
+    rename({hash: '123', basename: 'c'}, transform).should.eql('c-123');
+    rename({hash: '456', basename: 'c'}, transform).should.eql('c-456');
+  });
+
   it('template', function() {
     rename({
       basename: 'c',
