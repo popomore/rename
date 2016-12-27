@@ -29,7 +29,7 @@ describe('rename.parse', function() {
         dirname: '/home/admin',
         basename: 'file',
         extname: '.js',
-        origin: '/home/admin/file.js'
+        origin: '/home/admin/file.js',
       });
     });
 
@@ -38,7 +38,7 @@ describe('rename.parse', function() {
         dirname: '/home/admin',
         basename: 'file',
         extname: '',
-        origin: '/home/admin/file'
+        origin: '/home/admin/file',
       });
     });
 
@@ -47,25 +47,25 @@ describe('rename.parse', function() {
         dirname: '.',
         basename: 'file',
         extname: '',
-        origin: './file'
+        origin: './file',
       });
       parse('../file').should.eql({
         dirname: '..',
         basename: 'file',
         extname: '',
-        origin: '../file'
+        origin: '../file',
       });
       parse('../dir/file').should.eql({
         dirname: '../dir',
         basename: 'file',
         extname: '',
-        origin: '../dir/file'
+        origin: '../dir/file',
       });
       parse('file').should.eql({
         dirname: '.',
         basename: 'file',
         extname: '',
-        origin: 'file'
+        origin: 'file',
       });
     });
   });
@@ -77,7 +77,7 @@ describe('rename.parse', function() {
         dirname: '',
         basename: '',
         extname: '',
-        origin: ''
+        origin: '',
       });
     });
 
@@ -86,18 +86,18 @@ describe('rename.parse', function() {
         dirname: '/home/admin',
         basename: 'file',
         extname: '.js',
-        origin: '/home/admin/file.js'
+        origin: '/home/admin/file.js',
       };
       parse(orig).should.equal(orig);
     });
 
     it('should pass custom property', function() {
-      parse({hash: '123456'}).should.eql({
+      parse({ hash: '123456' }).should.eql({
         dirname: '',
         basename: '',
         extname: '',
         origin: '',
-        hash: '123456'
+        hash: '123456',
       });
     });
   });

@@ -26,7 +26,7 @@ describe('rename.stringify', function() {
     stringify({
       dirname: '/home/admin',
       basename: 'file',
-      extname: '.js'
+      extname: '.js',
     }).should.eql('/home/admin/file.js');
   });
 
@@ -34,7 +34,7 @@ describe('rename.stringify', function() {
     stringify({
       dirname: '/home/admin',
       basename: 'file',
-      extname: ''
+      extname: '',
     }).should.eql('/home/admin/file');
   });
 
@@ -42,26 +42,26 @@ describe('rename.stringify', function() {
     stringify({
       dirname: '.',
       basename: 'file',
-      extname: ''
+      extname: '',
     }).should.eql('file');
     stringify({
       dirname: '..',
       basename: 'file',
-      extname: ''
+      extname: '',
     }).should.eql('../file');
   });
 
   it('should stringify without dirname', function() {
     stringify({
       basename: 'file',
-      extname: '.js'
+      extname: '.js',
     }).should.eql('file.js');
   });
 
   it('should stringify without extname', function() {
     stringify({
       dirname: '/home/admin',
-      basename: 'file'
+      basename: 'file',
     }).should.eql('/home/admin/file');
   });
 });

@@ -69,7 +69,7 @@ function transform(fileObj, transformed) {
   result.basename = [
     transformed.prefix || '',
     choose('basename', transformed, fileObj),
-    transformed.suffix || ''
+    transformed.suffix || '',
   ].join('');
   return stringify(result);
 }
