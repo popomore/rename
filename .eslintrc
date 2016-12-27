@@ -1,0 +1,6 @@
+{
+  "extends": "egg",
+  "rules": {
+    "no-var": "off"
+  }
+}

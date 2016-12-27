@@ -121,4 +121,5 @@ Generate a filepath from _file object_.
 
 ## LISENCE
 
-Copyright (c) 2015 popomore. Licensed under the MIT license.
+Copyright (c) 2017 popomore. Licensed under the MIT license.
+

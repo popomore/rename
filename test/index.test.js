@@ -13,14 +13,14 @@ describe('rename', function() {
     rename('a.js', undefined).should.eql('a.js');
     rename({
       basename: 'a',
-      extname: '.js'
+      extname: '.js',
     }, '').should.eql('a.js');
   });
 
   it('function', function() {
     function transformer(fileObj) {
       var result = {
-        extname: '.css'
+        extname: '.css',
       };
       if (fileObj.basename === 'd') {
         result.dirname = fileObj.dirname + '/d';
@@ -35,7 +35,7 @@ describe('rename', function() {
       dirname: 'a/b',
       basename: 'c',
       extname: '.js',
-      hash: '-abc'
+      hash: '-abc',
     }, transformer).should.eql('a/b/c-abc.css');
 
     rename('a.js', function() {
@@ -49,48 +49,48 @@ describe('rename', function() {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('d/e/pre-f-debug.css');
 
     rename('./a/b/c.js', {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('a/b/pre-f-debug.css');
 
     rename('../a/b/c.js', {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('../a/b/pre-f-debug.css');
 
     rename('./c.js', {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('pre-f-debug.css');
 
     rename('../c.js', {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('../pre-f-debug.css');
 
     rename('c.js', {
       prefix: 'pre-',
       suffix: '-debug',
       extname: '.css',
-      basename: 'f'
+      basename: 'f',
     }).should.eql('pre-f-debug.css');
 
     rename('a/b/c.js', {
       dirname: null,
       extname: null,
-      basename: null
+      basename: null,
     }).should.eql('');
 
     rename('a/b/c.js', {}).should.eql('a/b/c.js');
@@ -98,17 +98,17 @@ describe('rename', function() {
 
   it('object more than once', function() {
     var transform = {
-      suffix: '-${hash}'
+      suffix: '-${hash}',
     };
-    rename({hash: '123', basename: 'c'}, transform).should.eql('c-123');
-    rename({hash: '456', basename: 'c'}, transform).should.eql('c-456');
+    rename({ hash: '123', basename: 'c' }, transform).should.eql('c-123');
+    rename({ hash: '456', basename: 'c' }, transform).should.eql('c-456');
   });
 
   it('template', function() {
     rename({
       basename: 'c',
       extname: '.js',
-      hash: '111'
+      hash: '111',
     }, {
       suffix: '-${hash}',
     }).should.eql('c-111.js');
@@ -116,8 +116,8 @@ describe('rename', function() {
     rename({
       basename: 'c',
       extname: '.js',
-      hash: '111'
-    }, function(){
+      hash: '111',
+    }, function() {
       return {
         suffix: '-${hash}',
       };
@@ -126,8 +126,8 @@ describe('rename', function() {
     rename({
       basename: 'c',
       extname: '.js',
-      hash: '111'
-    }, function(){
+      hash: '111',
+    }, function() {
       return {
         suffix: '-${noexist}',
       };
