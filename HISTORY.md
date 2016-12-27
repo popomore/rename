@@ -1,3 +1,11 @@
+
+1.0.4 / 2016-12-27
+==================
+
+  * style: use eslint
+  * deps upgrade debug
+  * chore: use egg-bin for test
+
 ## 1.0.3 / 2015-02-15
 
 - fix: return self if transformer is empty

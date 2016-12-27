@@ -1,6 +1,6 @@
 {
   "name": "rename",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Rename files using some transformers.",
   "main": "index",
   "dependencies": {
